@@ -56,12 +56,6 @@ npm install
 npm run dev
 ```
 
-### Tudo junto (requer `make`)
-
-```bash
-make dev
-```
-
 O frontend abre em `http://localhost:5173`.
 
 Na **primeira inicialização**, o backend processa os dados (~3–5 min). As reinicializações seguintes usam cache parquet (~30s). Uma barra de progresso exibe o status em tempo real.
