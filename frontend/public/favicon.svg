@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="#0f172a"/>
+  <!-- Shield -->
+  <path d="M16 4 L26 8 L26 17 C26 22.5 21.5 27 16 29 C10.5 27 6 22.5 6 17 L6 8 Z" fill="#1e40af" stroke="#3b82f6" stroke-width="1"/>
+  <!-- Radar arcs -->
+  <circle cx="16" cy="17" r="4" stroke="#60a5fa" stroke-width="1.2" fill="none" stroke-dasharray="2 2"/>
+  <circle cx="16" cy="17" r="7" stroke="#3b82f6" stroke-width="0.8" fill="none" stroke-dasharray="2 3" opacity="0.6"/>
+  <!-- Center dot -->
+  <circle cx="16" cy="17" r="1.5" fill="#93c5fd"/>
+  <!-- Rain drops -->
+  <circle cx="13" cy="13" r="0.8" fill="#bfdbfe" opacity="0.8"/>
+  <circle cx="19" cy="12" r="0.8" fill="#bfdbfe" opacity="0.8"/>
+</svg>
