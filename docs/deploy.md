@@ -2,6 +2,10 @@
 
 Como publicar a plataforma com **URL pública, grátis e sem perder funcionalidade**.
 
+> ✅ **No ar:** https://samuelorrico-guardiaoai.hf.space — Hugging Face Spaces, URL
+> única (API + frontend no mesmo container). Este guia documenta como foi feito e
+> como atualizar a demo.
+
 ## Por que não Vercel (para o backend)
 
 A Vercel é serverless/stateless. O backend é stateful: o pipeline roda no boot e
@@ -95,6 +99,19 @@ O HF detecta o `Dockerfile`, builda e publica em `https://<user>-<space>.hf.spac
 > ⚠️ Não rode `git push origin deploy-hf` — mandaria os 164 MB para o GitHub. A
 > `deploy-hf` é só para o Space; seu `main` continua limpo. Para voltar ao trabalho
 > normal: `git checkout main`.
+
+### Atualizar a demo (após o 1º deploy)
+
+A história já está alinhada — **sem `--force`** daqui pra frente:
+
+```bash
+git checkout deploy-hf
+git merge main          # traz o que mudou no main
+                        # (se README.md conflitar, mantenha o cabeçalho YAML do topo)
+git add -f backend/models/artifacts   # só se rodou `make train` de novo
+git push space deploy-hf:main
+git checkout main       # volta ao trabalho normal
+```
 
 ## Alternativa: frontend separado (Vercel) + backend (HF Spaces)
 
