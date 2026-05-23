@@ -61,29 +61,40 @@ carrega. (O primeiro acesso pode levar ~1 min enquanto o store popula.)
 
 **2. Crie o Space** em huggingface.co → New Space → SDK **Docker** → Blank.
 
-**3. Configure Git LFS e envie** (no diretório do projeto):
+**3. Crie um token de escrita** em huggingface.co/settings/tokens → **New token** →
+Type **Write**. O git por HTTPS **não aceita a senha da conta**: no push, a "senha"
+é esse token. (Alternativa: rodar `hf auth login` uma vez — `pip install -U huggingface_hub`.)
+
+**4. Envie numa branch dedicada** — mantém o `main` do GitHub limpo, sem os 164 MB:
 
 ```bash
 git lfs install
-# o .gitattributes do projeto já rastreia *.parquet e *.joblib
 git remote add space https://huggingface.co/spaces/<user>/<space>
-git add -f backend/models/artifacts        # força, pois estão no .gitignore
-git add .gitattributes Dockerfile
-git commit -m "deploy: artefatos + Dockerfile"
-git push space main
+
+git checkout -b deploy-hf            # branch só para o deploy
+
+# Adicione o cabeçalho YAML no TOPO do README.md (o Space precisa dele):
+#   ---
+#   title: <nome>
+#   sdk: docker
+#   app_port: 7860
+#   ---
+# edite e salve o README.md, então:
+
+git add -f backend/models/artifacts  # força: estão no .gitignore. .gitattributes manda p/ LFS
+git add README.md
+git commit -m "deploy(hf): config do Space + artefatos via LFS"
+
+# 1º deploy usa --force: o Space tem um commit inicial automático (história não-relacionada)
+git push space deploy-hf:main --force
 ```
 
-**4. Header do Space** — garanta que o `README.md` na raiz do Space comece com:
+Ao pedir credencial: **usuário** = seu login HF · **senha** = o **token** (passo 3).
+O HF detecta o `Dockerfile`, builda e publica em `https://<user>-<space>.hf.space`.
 
-```yaml
----
-title: GuardiãoIA Meteorológico
-sdk: docker
-app_port: 7860
----
-```
-
-O HF builda o `Dockerfile` automaticamente. Pronto: URL pública única.
+> ⚠️ Não rode `git push origin deploy-hf` — mandaria os 164 MB para o GitHub. A
+> `deploy-hf` é só para o Space; seu `main` continua limpo. Para voltar ao trabalho
+> normal: `git checkout main`.
 
 ## Alternativa: frontend separado (Vercel) + backend (HF Spaces)
 
