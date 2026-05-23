@@ -47,6 +47,10 @@ make train          # = python backend/scripts/train_models.py
 
 **1. Teste local com Docker** (valida a imagem antes de subir):
 
+> **Antes de tudo: abra o Docker Desktop** e espere o ícone ficar verde (daemon
+> ativo). Sem ele, `make docker-build` falha com
+> `failed to connect to the docker API ... check if the daemon is running`.
+
 ```bash
 make docker-build           # docker build -t guardiaoia .
 make docker-run             # http://localhost:7860
