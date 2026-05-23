@@ -14,7 +14,7 @@ help:
 	@echo   make test-back    Roda os testes do backend (pytest)
 	@echo   make test-front   Roda os testes do frontend (vitest)
 	@echo   make lint         Roda o eslint no frontend
-	@echo   make build        Build de producao do frontend (vite)
+	@echo   make build        Build de producao do frontend (tsc + vite)
 	@echo   make train        Treina os modelos de IA
 	@echo   make docker-build Builda a imagem de URL unica (API + frontend)
 	@echo   make docker-run   Roda a imagem localmente em http://localhost:7860
@@ -57,10 +57,8 @@ lint:
 	cd frontend && npm run lint
 
 # --- Build / IA ---
-# Usa `vite build` direto: o `tsc -b` do package.json tem erros de tipo
-# pre-existentes que nao afetam o bundle. Use `make lint` para checar codigo.
 build:
-	cd frontend && npx vite build
+	cd frontend && npm run build
 
 train:
 	python backend/scripts/train_models.py

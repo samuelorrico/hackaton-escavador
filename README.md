@@ -35,7 +35,7 @@ Transforma 5,2 milhões de registros históricos de 48 estações INMET em alert
 ### Requisitos
 
 - Python 3.11+
-- Node.js 18+
+- Node.js 20.19+ (exigido pelo Vite 8)
 - O arquivo `assets/banco_de_dados.db` (fornecido separadamente — não versionado)
 
 ### Backend
@@ -81,9 +81,6 @@ O `Makefile` na raiz consolida os comandos de setup, dev e testes.
 | `make train` | Treina os modelos de IA |
 
 `make dev` abre back e front em **duas janelas** (usa `start` do Windows). Em git-bash/WSL, rode `make dev-back` e `make dev-front` em terminais separados.
-
-> **Build do frontend:** `make build` usa `vite build` direto. O `npm run build`
-> (com `tsc -b`) falha por erros de tipo pré-existentes que não afetam o bundle.
 
 ---
 

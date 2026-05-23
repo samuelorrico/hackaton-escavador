@@ -11,9 +11,8 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 COPY frontend/ ./
 # VITE_API_URL não é definido de propósito: o default é /api (mesma origem).
-# Usa `vite build` direto (não `npm run build`): o `tsc -b` do script tem
-# erros de tipo pré-existentes que não afetam o bundle gerado pelo esbuild.
-RUN npx vite build
+# `npm run build` = tsc -b (type-check) + vite build (bundle).
+RUN npm run build
 
 # ---------- Stage 2: runtime Python ----------
 FROM python:3.11-slim AS runtime

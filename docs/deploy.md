@@ -90,7 +90,7 @@ Vantagem: o frontend num CDN global (mais rápido) e deploy independente. Custo:
 
 **Frontend (Vercel):**
 - Root directory: `frontend`
-- Build command: `npx vite build` · Output: `dist`
+- Build command: `npm run build` · Output: `dist`
 - Env var: `VITE_API_URL=https://<user>-<space>.hf.space/api`
 
 Como o backend serve a API sob `/api`, o `VITE_API_URL` aponta para `.../api`.
@@ -104,10 +104,3 @@ Como o backend serve a API sob `/api`, o `VITE_API_URL` aponta para `.../api`.
 | `CORS_ORIGINS` | `http://localhost:5173` | Origens liberadas (frontend separado) |
 | `DB_PATH` | `assets/banco_de_dados.db` | Só usado se faltar cache (re-treina) |
 | `SKIP_STARTUP` | `0` | `1` pula o pipeline (usado em testes) |
-
-## Nota — `npm run build`
-
-O script `npm run build` (`tsc -b && vite build`) **falha** por erros de tipo
-pré-existentes nas páginas. O bundle em si é gerado normalmente pelo `vite build`
-(esbuild ignora tipos), que é o usado no Dockerfile e no `make build`. Os erros de
-tipo não impedem o deploy, mas vale corrigi-los depois.
